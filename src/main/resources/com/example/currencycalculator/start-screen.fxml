@@ -1,35 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.text.Font?>
 
 <StackPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0">
+      <VBox alignment="CENTER" maxHeight="300.0" maxWidth="300.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" StackPane.alignment="CENTER">
          <children>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Currency Calculator" />
-                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="loading latests excge rates from server. Please wait..." />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <ProgressIndicator maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </ProgressIndicator>
-               </children>
-            </VBox>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Currency Calculator" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="loading exchange rates from server, please wait." VBox.vgrow="ALWAYS">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ProgressIndicator maxHeight="50.0" maxWidth="50.0" prefWidth="580.0" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </ProgressIndicator>
+            <Label alignment="CENTER" text="Click to use previously synced data" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Label>
+            <Button mnemonicParsing="false" text="load archival" VBox.vgrow="ALWAYS" />
          </children>
+         <StackPane.margin>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+         </StackPane.margin>
       </VBox>
    </children>
 </StackPane>
