@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.currencycalculator.StartScreenController">
    <children>
       <VBox alignment="CENTER" maxHeight="300.0" maxWidth="300.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" StackPane.alignment="CENTER">
          <children>
@@ -32,7 +32,7 @@
                   <Font size="11.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" text="load archival" VBox.vgrow="ALWAYS" />
+            <Button fx:id="loadArchiveDataButton" mnemonicParsing="false" onAction="#loadArchiveDataButtonPressed" text="load archival" VBox.vgrow="ALWAYS" />
          </children>
          <StackPane.margin>
             <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />

@@ -8,6 +8,10 @@ public class LocalConnectionHandler {
     public Scene loadScene(Scenes sceneId) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(sceneId.getFxmlFilePath()));
-        return new Scene(fxmlLoader.load());
+        Scene scene = new Scene(fxmlLoader.load());
+        ControllerInterface controller = fxmlLoader.getController();
+        controller.setLocalConnectionHandler(this);
+
+        return scene;
     }
 }

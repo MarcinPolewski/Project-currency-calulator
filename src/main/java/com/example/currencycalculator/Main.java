@@ -17,6 +17,8 @@ public class Main extends Application {
             scene = localConnectionHandler.loadScene(Scenes.START);
         } catch(IOException e)
         {
+            // @TODO prompt user about encountered error
+            System.out.println("error during loading .fxml file");
             return;
         }
 
