@@ -8,6 +8,8 @@ public class StartScreenController {
     @FXML
     Button loadArchiveDataButton;
 
+    LocalConnectionHandler localConnectionHandler;
+
     void loadArchiveDataButtonPressed(ActionEvent event)
     {
 

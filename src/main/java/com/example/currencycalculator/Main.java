@@ -10,15 +10,15 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("start-screen.fxml"));
+
+        LocalConnectionHandler localConnectionHandler = new LocalConnectionHandler();
         Scene scene;
         try{
-            scene = new Scene(fxmlLoader.load());
-        } catch (IOException e){
-            System.out.println("Failed to read start screen");
+            scene = localConnectionHandler.loadScene(Scenes.START);
+        } catch(IOException e)
+        {
             return;
         }
-
 
         stage.setTitle("Currency calculator $£€");
         stage.setScene(scene);
