@@ -17,7 +17,18 @@ public class LocalConnectionHandler {
         return scene;
     }
 
-    public String getApiKey() throws IOException
+//    public String getApiKey() throws IOException
+//    {
+//        InputStream input =  LocalConnectionHandler.class.getResourceAsStream("config.properties");
+//        if(input == null)
+//            throw new IOException();
+//
+//        Properties properties = new Properties();
+//        properties.load(input);
+//        return properties.getProperty("api.key");
+//    }
+
+    public Properties getApiProperties() throws IOException
     {
         InputStream input =  LocalConnectionHandler.class.getResourceAsStream("config.properties");
         if(input == null)
@@ -25,6 +36,11 @@ public class LocalConnectionHandler {
 
         Properties properties = new Properties();
         properties.load(input);
-        return properties.getProperty("api.key");
+        return properties;
+    }
+
+    public void updateCurrencyInfo(String newFileContent)
+    {
+        // @TODO
     }
 }
