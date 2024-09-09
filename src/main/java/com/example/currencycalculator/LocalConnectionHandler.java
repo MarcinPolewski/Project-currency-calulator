@@ -2,33 +2,52 @@ package com.example.currencycalculator;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import java.io.IOException;
-import java.io.InputStream;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class LocalConnectionHandler {
-    public Scene loadScene(Scenes sceneId) throws IOException
+    private static void writeToFile(String fileName, String content) throws IOException
+    {
+        // @TODO make a dynamic path ?
+        String filePath = "src/main/resources/com/example/currencycalculator/" + fileName;
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+        writer.write(content);
+        writer.close();
+    }
+    private static String readFromFile(String fileName) throws IOException
+    {
+        // @TODO make a dynamic path ?
+        String filePath = "src/main/resources/com/example/currencycalculator/" + fileName;
+        return Files.readString(Paths.get(filePath));
+    }
+
+    public static Scene loadScene(Scenes sceneId) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(sceneId.getFxmlFilePath()));
         Scene scene = new Scene(fxmlLoader.load());
-        ControllerInterface controller = fxmlLoader.getController();
-        controller.setLocalConnectionHandler(this);
-
         return scene;
     }
 
-//    public String getApiKey() throws IOException
-//    {
-//        InputStream input =  LocalConnectionHandler.class.getResourceAsStream("config.properties");
-//        if(input == null)
-//            throw new IOException();
-//
-//        Properties properties = new Properties();
-//        properties.load(input);
-//        return properties.getProperty("api.key");
-//    }
+    public static String getArchvalExchangeRates() throws IOException
+    {
+        return readFromFile("exchange-rates.json");
+    }
 
-    public Properties getApiProperties() throws IOException
+    public static String getArchivalCurrencyInfo() throws  IOException
+    {
+        return readFromFile("currencies-info.json");
+    }
+
+    public static ArrayList<Currency> getArchivalCurrenyObjects() throws IOException
+    {
+        return FileDataConverter.inputToArrayOfObjects(readFromFile("exchange-rates.json"), readFromFile("currencies-info.json"));
+    }
+
+    public static Properties getApiProperties() throws IOException
     {
         InputStream input =  LocalConnectionHandler.class.getResourceAsStream("config.properties");
         if(input == null)
@@ -39,8 +58,13 @@ public class LocalConnectionHandler {
         return properties;
     }
 
-    public void updateCurrencyInfo(String newFileContent)
+    public static void updateCurrencyInfo(String newFileContent) throws IOException
     {
-        // @TODO
+        writeToFile("currencies-info.json", newFileContent);
+    }
+
+    public static void updateExchangeRatesInformation(String newFileContent) throws IOException
+    {
+        writeToFile("exchange-rates.json", newFileContent);
     }
 }

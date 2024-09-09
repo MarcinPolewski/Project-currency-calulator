@@ -1,5 +1,7 @@
 # About project 
 
+External JSON parser was used(https://github.com/FasterXML/jackson)
+This currency api was used(https://exchangeratesapi.io/)
 # Goals
 
 # Design questions/problems

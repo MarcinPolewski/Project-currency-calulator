@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainScreenController implements ControllerInterface, Initializable {
+public class MainScreenController implements  Initializable {
     @FXML
     ChoiceBox sourceCurrencyChoiceBox;
     @FXML
@@ -27,12 +27,6 @@ public class MainScreenController implements ControllerInterface, Initializable 
 
     @FXML
     VBox rightVBox;
-
-    private LocalConnectionHandler localConnectionHandler;
-    @Override
-    public void setLocalConnectionHandler(LocalConnectionHandler localConnectionHandler) {
-        this.localConnectionHandler = localConnectionHandler;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

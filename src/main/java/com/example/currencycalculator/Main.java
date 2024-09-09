@@ -1,5 +1,7 @@
 package com.example.currencycalculator;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,15 +9,17 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-        LocalConnectionHandler localConnectionHandler = new LocalConnectionHandler();
         ServerConnectionHandler serverConnectionHandler;
         try{
-            serverConnectionHandler = new ServerConnectionHandler(localConnectionHandler);
+            serverConnectionHandler = new ServerConnectionHandler();
         }catch(MalformedURLException e) {
             // @TODO prompt user about encountered error
             System.out.println("error has occured during constructing api link");
@@ -28,7 +32,7 @@ public class Main extends Application {
 
         Scene scene;
         try{
-            scene = localConnectionHandler.loadScene(Scenes.START);
+            scene = LocalConnectionHandler.loadScene(Scenes.START);
         } catch(IOException e)
         {
             // @TODO prompt user about encountered error
@@ -40,15 +44,12 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
-        try
-        {
-            String s = serverConnectionHandler.loadCurrencyInfo();
-            System.out.println(s);
-        } catch (IOException e)
-        {
-            System.out.println("could not load currecy info");
+        try {
+            ArrayList<Currency> c = LocalConnectionHandler.getArchivalCurrenyObjects();
+            System.out.println(c.get(0).getCode());
+        } catch (IOException e) {
+            System.out.println("dupa");
         }
-
     }
 
     public static void main(String[] args) {

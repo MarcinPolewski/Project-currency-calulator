@@ -9,11 +9,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class StartScreenController implements ControllerInterface{
+public class StartScreenController{
     @FXML
     Button loadArchiveDataButton;
-
-    LocalConnectionHandler localConnectionHandler;
 
     @FXML
     void loadArchiveDataButtonPressed(ActionEvent event)
@@ -21,7 +19,7 @@ public class StartScreenController implements ControllerInterface{
         // @TODO read archival data here
         Scene newScene;
         try{
-            newScene = localConnectionHandler.loadScene(Scenes.MAIN);
+            newScene = LocalConnectionHandler.loadScene(Scenes.MAIN);
         } catch (IOException e)
         {
             System.out.println("Error has occured during loading .fxml file of main screen");
@@ -31,10 +29,5 @@ public class StartScreenController implements ControllerInterface{
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(newScene);
         stage.show();
-    }
-
-    @Override
-    public void setLocalConnectionHandler(LocalConnectionHandler localConnectionHandler) {
-        this.localConnectionHandler = localConnectionHandler;
     }
 }
