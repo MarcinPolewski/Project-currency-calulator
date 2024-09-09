@@ -25,6 +25,7 @@ public class StartScreenController implements ControllerInterface{
         } catch (IOException e)
         {
             System.out.println("Error has occured during loading .fxml file of main screen");
+            // @TODO prompt user about an error
             return;
         }
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();

@@ -3,6 +3,8 @@ package com.example.currencycalculator;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class LocalConnectionHandler {
     public Scene loadScene(Scenes sceneId) throws IOException
@@ -13,5 +15,16 @@ public class LocalConnectionHandler {
         controller.setLocalConnectionHandler(this);
 
         return scene;
+    }
+
+    public String getApiKey() throws IOException
+    {
+        InputStream input =  LocalConnectionHandler.class.getResourceAsStream("config.properties");
+        if(input == null)
+            throw new IOException();
+
+        Properties properties = new Properties();
+        properties.load(input);
+        return properties.getProperty("api.key");
     }
 }

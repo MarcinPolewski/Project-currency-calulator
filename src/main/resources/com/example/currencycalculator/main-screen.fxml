@@ -18,7 +18,7 @@
             <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
                   <ChoiceBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="150.0" VBox.vgrow="ALWAYS" />
-                  <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                  <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="100.00" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
             <VBox maxWidth="50.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -29,7 +29,7 @@
             <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
                   <ChoiceBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="150.0" VBox.vgrow="ALWAYS" />
-                  <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                  <TextField editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children>
