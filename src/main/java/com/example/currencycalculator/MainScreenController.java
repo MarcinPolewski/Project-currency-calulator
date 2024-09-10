@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainScreenController implements  Initializable {
+public class MainScreenController implements  Initializable, ControllerInterface {
     @FXML
     ChoiceBox sourceCurrencyChoiceBox;
     @FXML
@@ -28,6 +28,8 @@ public class MainScreenController implements  Initializable {
     @FXML
     VBox rightVBox;
 
+    private CurrencyCalculator currencyCalculator;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // ============== setting proportions of ChoiceBoxes and Text fiels to 2:1 ==============
@@ -40,6 +42,13 @@ public class MainScreenController implements  Initializable {
             resultValueTextField.setPrefHeight((containerHeight*2.0)/3.0);
         });
 
+//        sourceCurrencyChoiceBox.getItems().setAll()
+
+    }
+
+    @Override
+    public void setCurrencyCalculator(CurrencyCalculator cc) {
+        this.currencyCalculator = cc;
 
     }
 }

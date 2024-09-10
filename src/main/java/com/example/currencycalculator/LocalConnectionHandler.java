@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public class LocalConnectionHandler {
+    private static CurrencyCalculator currencyCalculator;
+
     private static void writeToFile(String fileName, String content) throws IOException
     {
         // @TODO make a dynamic path ?
@@ -25,10 +27,12 @@ public class LocalConnectionHandler {
         return Files.readString(Paths.get(filePath));
     }
 
-    public static Scene loadScene(Scenes sceneId) throws IOException
+    public static CurrencyCalcScene loadScene(Scenes sceneId) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(sceneId.getFxmlFilePath()));
-        Scene scene = new Scene(fxmlLoader.load());
+        CurrencyCalcScene scene = new CurrencyCalcScene(fxmlLoader.load(), fxmlLoader.getController());
+        ControllerInterface controller = fxmlLoader.getController();
+        controller.setCurrencyCalculator(currencyCalculator);
         return scene;
     }
 
@@ -66,5 +70,10 @@ public class LocalConnectionHandler {
     public static void updateExchangeRatesInformation(String newFileContent) throws IOException
     {
         writeToFile("exchange-rates.json", newFileContent);
+    }
+
+    public static void setCurrencyCalculator(CurrencyCalculator cc)
+    {
+        currencyCalculator = cc;
     }
 }

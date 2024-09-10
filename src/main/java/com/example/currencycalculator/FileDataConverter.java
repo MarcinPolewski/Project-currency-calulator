@@ -12,10 +12,7 @@ import java.util.ArrayList;
 
 public class FileDataConverter {
     public static ArrayList<Currency> inputToArrayOfObjects(String exchangeRatesString, String currencyInfoString) throws IOException {
-//        // fetch
-//        String exchangeRatesString = LocalConnectionHandler.getArchvalExchangeRates();
-//        String currencyInfoString = LocalConnectionHandler.getArchivalCurrencyInfo();
-
+        // from two different json files from API creates array of objects
         ObjectMapper exchangeRatesObjectMapper= new ObjectMapper();
         JsonNode exchangeRatesNode = exchangeRatesObjectMapper.readTree(exchangeRatesString).get("rates"); // this is the exchangeRatesNode with "list" of SYMBOL: exchange rate
 
@@ -39,7 +36,7 @@ public class FileDataConverter {
             if(!currencyCode2.equals(currencyCode1))
             {
                 //throw new IOException("Invalid currency info order");
-                System.out.println("kolejnosc nie pyka " + currencyCode2 + " " + currencyCode1);
+                System.out.println("Wrong API data !!" + currencyCode2 + " " + currencyCode1);
                 continue;
 
             }

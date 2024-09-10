@@ -24,4 +24,9 @@ public class Currency {
         return exchangeRate;
     }
 
+    public String toString()
+    {
+        return "(" + this.code + ") " + this.fullName;
+    }
+
 }

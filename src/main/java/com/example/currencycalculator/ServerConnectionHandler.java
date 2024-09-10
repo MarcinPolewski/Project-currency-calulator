@@ -13,7 +13,6 @@ public class ServerConnectionHandler {
     ServerConnectionHandler() throws IOException {
         this.apiProperties =  LocalConnectionHandler.getApiProperties();
     }
-
     public static String loadCurrencyInfo() throws IOException {
         String linkText = apiProperties.getProperty("api.baseLink") +
                 apiProperties.getProperty("api.currencyInfoLinkExtension") +

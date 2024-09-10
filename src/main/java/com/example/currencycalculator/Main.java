@@ -1,21 +1,20 @@
 package com.example.currencycalculator;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
 
 public class Main extends Application {
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage)  {
+
+        // ================= initialize essential classes =================
+        CurrencyCalculator currencyCalculator = new CurrencyCalculator();
+        LocalConnectionHandler.setCurrencyCalculator(currencyCalculator);
 
         ServerConnectionHandler serverConnectionHandler;
         try{
@@ -30,9 +29,11 @@ public class Main extends Application {
             return;
         }
 
-        Scene scene;
+        // ============= load the start scene =============
+        CurrencyCalcScene scene;
         try{
             scene = LocalConnectionHandler.loadScene(Scenes.START);
+
         } catch(IOException e)
         {
             // @TODO prompt user about encountered error
@@ -44,13 +45,11 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
-        try {
-            ArrayList<Currency> c = LocalConnectionHandler.getArchivalCurrenyObjects();
-            System.out.println(c.get(0).getCode());
-        } catch (IOException e) {
-            System.out.println("dupa");
-        }
+        // start loading assets
+        StartScreenController ctrl = (StartScreenController) scene.getController();
+        ctrl.startLoadingAssets();
     }
+
 
     public static void main(String[] args) {
         launch();
