@@ -23,7 +23,7 @@
             </VBox>
             <VBox maxWidth="50.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="swapButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="swap" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="swapButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#swapButtonPressed" text="swap" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
             <VBox fx:id="rightVBox" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">

@@ -30,6 +30,11 @@ public class CurrencyCalculator {
         return assetsLoaded;
     }
 
+    public  ArrayList<Currency> getCurrencies()
+    {
+        return currencies;
+    }
+
 //    public ArrayList<String> getConversionLabels()
 //    {
 //        // get contents of labels that are presented on the bottom part of the screen

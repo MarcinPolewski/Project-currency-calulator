@@ -28,7 +28,8 @@ public class StartScreenController implements Initializable, ControllerInterface
             // @TODO prompt user about an error
             return;
         }
-        //Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        ((ControllerInterface)newScene.getController()).processingAfterInitialization();
+
         Stage stage = (Stage)loadArchiveDataButton.getScene().getWindow();
         stage.setScene(newScene);
         stage.show();
@@ -43,7 +44,8 @@ public class StartScreenController implements Initializable, ControllerInterface
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
-    void startLoadingAssets()
+    @Override
+    public void processingAfterInitialization()
     {
         // add listener to currencyCalculator
         currencyCalculator.areAssetsLoadedProperty().addListener(((observableValue, aBoolean, t1) -> {

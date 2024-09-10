@@ -47,7 +47,7 @@ public class Main extends Application {
 
         // start loading assets
         StartScreenController ctrl = (StartScreenController) scene.getController();
-        ctrl.startLoadingAssets();
+        ctrl.processingAfterInitialization();   // starts loading assets
     }
 
 

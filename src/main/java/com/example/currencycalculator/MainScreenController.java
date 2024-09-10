@@ -30,6 +30,20 @@ public class MainScreenController implements  Initializable, ControllerInterface
 
     private CurrencyCalculator currencyCalculator;
 
+    @FXML
+    public void swapButtonPressed()
+    {
+        if(sourceCurrencyChoiceBox.getValue() != null || resultCurrencyChoiceBox.getValue() != null)
+        {
+            System.out.println("faspdfkadslij");
+            Currency c1 = (Currency)sourceCurrencyChoiceBox.getValue();
+            Currency c2 = (Currency)resultCurrencyChoiceBox.getValue();
+
+            resultCurrencyChoiceBox.setValue(c1);
+            sourceCurrencyChoiceBox.setValue(c2);
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // ============== setting proportions of ChoiceBoxes and Text fiels to 2:1 ==============
@@ -41,8 +55,13 @@ public class MainScreenController implements  Initializable, ControllerInterface
             resultCurrencyChoiceBox.setPrefHeight(containerHeight/3.0);
             resultValueTextField.setPrefHeight((containerHeight*2.0)/3.0);
         });
+    }
 
-//        sourceCurrencyChoiceBox.getItems().setAll()
+    @Override
+    public void processingAfterInitialization() {
+        // ============ set contents of Choice Boxes
+        sourceCurrencyChoiceBox.getItems().setAll(currencyCalculator.getCurrencies());
+        resultCurrencyChoiceBox.getItems().setAll(currencyCalculator.getCurrencies());
 
     }
 
