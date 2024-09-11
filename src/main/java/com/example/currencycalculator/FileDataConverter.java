@@ -42,6 +42,11 @@ public class FileDataConverter {
             }
             currencies.add(new Currency(currencyCode1, fullCurrencyName.asText(), new BigDecimal(exchangeRate.asText())));
         }
+        if(currencies.size()<2)
+        {
+            throw new IOException("Input did not contain at least two currencies");
+        }
+
         return currencies;
     }
 

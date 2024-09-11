@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainScreenController implements  Initializable, ControllerInterface {
@@ -28,14 +29,28 @@ public class MainScreenController implements  Initializable, ControllerInterface
     @FXML
     VBox rightVBox;
 
+    @FXML
+    VBox exchangeRatesVBox1;
+    @FXML
+    VBox exchangeRatesVBox2;
+    @FXML
+    VBox exchangeRatesVBox3;
+    @FXML
+    VBox exchangeRatesVBox4;
+
     private CurrencyCalculator currencyCalculator;
+    private ArrayList<ExchangeRateLabel> exchangeRateLabels;
+
+    private void changeExchangeRateseScreen(Currency newBaseCurrency)
+    {
+
+    }
 
     @FXML
     public void swapButtonPressed()
     {
         if(sourceCurrencyChoiceBox.getValue() != null || resultCurrencyChoiceBox.getValue() != null)
         {
-            System.out.println("faspdfkadslij");
             Currency c1 = (Currency)sourceCurrencyChoiceBox.getValue();
             Currency c2 = (Currency)resultCurrencyChoiceBox.getValue();
 
@@ -63,6 +78,33 @@ public class MainScreenController implements  Initializable, ControllerInterface
         sourceCurrencyChoiceBox.getItems().setAll(currencyCalculator.getCurrencies());
         resultCurrencyChoiceBox.getItems().setAll(currencyCalculator.getCurrencies());
 
+        // setting default value of the boxes
+        if(currencyCalculator.getCurrencies().size() >= 2)
+        {
+            sourceCurrencyChoiceBox.setValue(currencyCalculator.getCurrencies().get(0));
+            resultCurrencyChoiceBox.setValue(currencyCalculator.getCurrencies().get(1));
+        }
+
+        // ============ implement exchange rates screen
+        //changeExchangeRateseScreen((Currency)sourceCurrencyChoiceBox.getValue());
+
+        Currency baseCurrency = (Currency)sourceCurrencyChoiceBox.getValue();
+
+        VBox[] containers = {exchangeRatesVBox1, exchangeRatesVBox2, exchangeRatesVBox3, exchangeRatesVBox4};
+        int containerIt = 0;
+
+        for(Currency currency : currencyCalculator.getCurrencies())
+        {
+            if(containerIt >= containers.length)
+            {
+                containerIt = 0;
+            }
+
+            ExchangeRateLabel label = new ExchangeRateLabel(baseCurrency, currency);
+            containers[containerIt].getChildren().add(label);
+            ++containerIt;
+
+        }
     }
 
     @Override

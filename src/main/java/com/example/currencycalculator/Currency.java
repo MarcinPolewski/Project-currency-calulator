@@ -24,6 +24,11 @@ public class Currency {
         return exchangeRate;
     }
 
+    public BigDecimal convertTo(Currency targetCurrency, BigDecimal value) {
+        return BigDecimal.TEN;
+    }
+
+
     public String toString()
     {
         return "(" + this.code + ") " + this.fullName;
