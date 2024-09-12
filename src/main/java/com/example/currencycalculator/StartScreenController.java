@@ -25,8 +25,10 @@ public class StartScreenController implements Initializable, ControllerInterface
             newScene = LocalConnectionHandler.loadScene(Scenes.MAIN);
         } catch (IOException e)
         {
-            System.out.println("Error has occurred during loading .fxml file of main screen");
-            // @TODO prompt user about an error
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error");
+            errorAlert.setHeaderText("Error occurred while reading scene's .fxml data from files");
+            errorAlert.setContentText(e.toString());
             return;
         }
         ((ControllerInterface)newScene.getController()).processingAfterInitialization();
@@ -55,7 +57,7 @@ public class StartScreenController implements Initializable, ControllerInterface
         {
             Alert failedToLoadAlert = new Alert(Alert.AlertType.ERROR);
             failedToLoadAlert.setTitle("Loading error");
-            failedToLoadAlert.setHeaderText("Application was unable to reach server for current data. Would you like to load archival data?");
+            failedToLoadAlert.setHeaderText("Application was unable to reach server for current data.\n Would you like to load archival data?");
             failedToLoadAlert.setContentText(e1.toString());
 
             ButtonType loadArchival = new ButtonType("load archival");

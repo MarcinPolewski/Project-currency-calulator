@@ -1,6 +1,7 @@
 package com.example.currencycalculator;
 
 import javafx.application.Application;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,13 +17,12 @@ public class Main extends Application {
 
         try{
             ServerConnectionHandler.initialize();
-        }catch(MalformedURLException e) {
-            // @TODO prompt user about encountered error
-            System.out.println("error has occurred during constructing api link");
-            return;
-        } catch(IOException e) {
-            // @TODO prompt user about encountered error
-            System.out.println("Error has occurred during accessing api configuration file");
+        }
+        catch(IOException e) {
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error");
+            errorAlert.setHeaderText("Error occurred while reading API data from files");
+            errorAlert.setContentText(e.toString());
             return;
         }
 
@@ -33,8 +33,10 @@ public class Main extends Application {
 
         } catch(IOException e)
         {
-            // @TODO prompt user about encountered error
-            System.out.println("error during loading .fxml file");
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Error");
+            errorAlert.setHeaderText("Error occurred while reading scene's .fxml data from files");
+            errorAlert.setContentText(e.toString());
             return;
         }
 

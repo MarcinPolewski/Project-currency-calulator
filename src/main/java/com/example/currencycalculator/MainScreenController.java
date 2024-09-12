@@ -78,9 +78,6 @@ public class MainScreenController implements  Initializable, ControllerInterface
 
     private void updateResultTextField()
     {
-        // @TODO
-        // 1. check if only numbers
-        // 2. get values
         if(!userValueInputTextField.getText().isEmpty())
         {
             BigDecimal startValue = new BigDecimal(userValueInputTextField.getText());
