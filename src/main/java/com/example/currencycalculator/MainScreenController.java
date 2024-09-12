@@ -39,11 +39,14 @@ public class MainScreenController implements  Initializable, ControllerInterface
     VBox exchangeRatesVBox4;
 
     private CurrencyCalculator currencyCalculator;
-    private ArrayList<ExchangeRateLabel> exchangeRateLabels;
+    private ArrayList<ExchangeRateLabel> exchangeRatesLabels = new ArrayList<ExchangeRateLabel>();
 
     private void changeExchangeRateseScreen(Currency newBaseCurrency)
     {
-
+        for(ExchangeRateLabel label : exchangeRatesLabels)
+        {
+            label.setBaseCurrency(newBaseCurrency);
+        }
     }
 
     @FXML
@@ -84,10 +87,7 @@ public class MainScreenController implements  Initializable, ControllerInterface
             sourceCurrencyChoiceBox.setValue(currencyCalculator.getCurrencies().get(0));
             resultCurrencyChoiceBox.setValue(currencyCalculator.getCurrencies().get(1));
         }
-
         // ============ implement exchange rates screen
-        //changeExchangeRateseScreen((Currency)sourceCurrencyChoiceBox.getValue());
-
         Currency baseCurrency = (Currency)sourceCurrencyChoiceBox.getValue();
 
         VBox[] containers = {exchangeRatesVBox1, exchangeRatesVBox2, exchangeRatesVBox3, exchangeRatesVBox4};
@@ -101,10 +101,26 @@ public class MainScreenController implements  Initializable, ControllerInterface
             }
 
             ExchangeRateLabel label = new ExchangeRateLabel(baseCurrency, currency);
+            exchangeRatesLabels.add(label);
             containers[containerIt].getChildren().add(label);
             ++containerIt;
-
         }
+
+        // =========== add listener to choice boxes
+        sourceCurrencyChoiceBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue != null)
+            {
+                changeExchangeRateseScreen((Currency)newValue);
+                // @TODO update result
+            }
+        });
+
+        resultCurrencyChoiceBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue != null)
+            {
+                // @TODO update result
+            }
+        });
     }
 
     @Override
