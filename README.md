@@ -1,32 +1,38 @@
-# About project 
-Currency caluclator app that lets users convert currencies based on current exchange rates synced from server on start up. When sync is not possible, user can load archival data. Furthermore, user is presented with exchange rates from selected base currency to all other currencies.
+# About the Project
+Currency calculator app that lets users convert currencies based on current exchange rates, synced from the server at startup. When syncing is not possible, the user can load archival data. Furthermore, the user is presented with exchange rates from the selected base currency to all other currencies.
+
 # Goals
-- write first more complex javaFX app, that is not perfect, because it's writed to develop my understanding of this subject
-- learn the challangers of it, discover what to focus on more in the future and gain as much experience(from planning to technical applications) as possible
-- achieve automatically scaling and responsive UI (does not have to be visually pleasing)
+- Write my first more complex JavaFX app. It's not perfect, as it's primarily built to develop my understanding of JavaFX.
+- Learn the challenges of working with JavaFX, discover areas to focus on in the future, and gain as much experience as possible (from planning to technical application).
+- Achieve automatic scaling and responsive UI (visual appeal is not a priority).
+
 # Usage
-1. get API key from website https://exchangeratesapi.io/
-2. paste your key in place of YOUR_API_KEY in config.properties located in /CurrencyCalculator/src/main/resources/com/example/currencycalculator/config.properties
-3. run main method in Main class
-# Design questions/problems
-- should LocalConnectionHandler class be static? In should not need any type of instance related variables. On the other hand if it needed not applying static keyword made implementing them much easier
-- handle better passing CurrencyCalculator(main logic class) to controller classes 
-    - option 1. make LocalConnectionHandle not static 
-    - option 2. (chosen one) LocalConnectionHandler has static property of CurrencyCaluclator class that is initialized in main
+1. Get an API key from [Exchange Rates API](https://exchangeratesapi.io/).
+2. Paste your key in place of `YOUR_API_KEY` in the `config.properties` file located at `/CurrencyCalculator/src/main/resources/com/example/currencycalculator/config.properties`.
+3. Run the main method in the `Main` class.
+
+# Design Questions/Problems
+- Should the `LocalConnectionHandler` class be static? It doesn’t seem to need instance-related variables. On the other hand, if it did, omitting the static keyword would make implementing them much easier.
+- Better handling is needed for passing the `CurrencyCalculator` (main logic class) to controller classes:
+  - Option 1: Make `LocalConnectionHandler` non-static.
+  - Option 2 (chosen): `LocalConnectionHandler` has a static property of the `CurrencyCalculator` class that is initialized in `Main`.
+
 # Reflections
-- Name "LocalConnectionHandler" is not as understandable as i thourgh (memmoryHandler would be better )
-- use of some kind of DependencyInjection Framework would be really usefull 
-    - in this project i had problem with injection CurrencyCalculator class into screen controller to start loading assets
-- Planning multithreading should also contain stopping the thread
-    - stopping a thread is a major problem when for instance some manipulation on files is done. One solution for example when writing is writing to a temporary file then swaping their names and deleting previous version
-- More focus on spreading responsibilities between classes. In case of this project classes of this type would be usefull:
-    - WindowManager/ScreenController - class responsible for launching windows
-    - PromptManager - class responsibl  for launching prompts
-- Focus more on reusability of code, think more about when something might be used. In this case, for instance loading exchange rates should be done in a way, that allows for syncing them during running the programm(currently only possible on start up)
-- better handle checking/sending request(they can be unsuccesful, preferably they should be run on other thread)
-# Result 
-![result1](result1.png?raw=true "Main Screen")
-![result2](result2.png?raw=true "Start Screen")
+- The name "LocalConnectionHandler" is not as clear as I thought; `MemoryHandler` would be a better name.
+- Using some kind of Dependency Injection framework would have been really useful.
+  - In this project, I had trouble injecting the `CurrencyCalculator` class into the screen controller to start loading assets.
+- Planning for multithreading should also include stopping the thread.
+  - Stopping a thread can be challenging, especially when manipulating files. One solution is to write to a temporary file, then swap their names and delete the previous version.
+- More focus is needed on distributing responsibilities between classes. For this project, the following types of classes would be useful:
+  - `WindowManager`/`ScreenController` - responsible for managing windows.
+  - `PromptManager` - responsible for handling prompts.
+- Focus more on code reusability. For example, loading exchange rates should be implemented in a way that allows syncing them during runtime (currently, it's only possible on startup).
+- Better handling of request checking/sending is needed (requests can fail and should preferably run on a separate thread).
+
+# Result
+![Main Screen](result1.png?raw=true "Main Screen")
+![Start Screen](result2.png?raw=true "Start Screen")
+
 # External Libraries/APIs
-External JSON parser was used(https://github.com/FasterXML/jackson)
-This currency api was used(https://exchangeratesapi.io/)
+- [Jackson](https://github.com/FasterXML/jackson) - External JSON parser.
+- [Exchange Rates API](https://exchangeratesapi.io/) - Currency exchange rate data provider.
