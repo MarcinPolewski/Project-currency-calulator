@@ -1,11 +1,8 @@
 package com.example.currencycalculator;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ProgressIndicator;
 import javafx.stage.Stage;
@@ -28,7 +25,7 @@ public class StartScreenController implements Initializable, ControllerInterface
             newScene = LocalConnectionHandler.loadScene(Scenes.MAIN);
         } catch (IOException e)
         {
-            System.out.println("Error has occured during loading .fxml file of main screen");
+            System.out.println("Error has occurred during loading .fxml file of main screen");
             // @TODO prompt user about an error
             return;
         }
@@ -53,7 +50,7 @@ public class StartScreenController implements Initializable, ControllerInterface
 
         // try to add currencies
         try{
-            currencyCalculator.loadCurreneciesFromServer();
+            currencyCalculator.loadCurrenciesFromServer();
         } catch(IOException e1)
         {
             Alert failedToLoadAlert = new Alert(Alert.AlertType.ERROR);
@@ -65,7 +62,7 @@ public class StartScreenController implements Initializable, ControllerInterface
             ButtonType quit = new ButtonType("quit");
             failedToLoadAlert.getButtonTypes().setAll(loadArchival, quit);
             Optional<ButtonType> result = failedToLoadAlert.showAndWait();
-            if(result.get() == loadArchival)
+            if(result.isPresent() && result.get() == loadArchival)
             {
                 try{
                     currencyCalculator.loadArchivalCurrencies();

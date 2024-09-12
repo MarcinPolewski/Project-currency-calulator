@@ -14,11 +14,11 @@ import java.util.ResourceBundle;
 
 public class MainScreenController implements  Initializable, ControllerInterface {
     @FXML
-    ChoiceBox sourceCurrencyChoiceBox;
+    ChoiceBox<Currency> sourceCurrencyChoiceBox;
     @FXML
     TextField userValueInputTextField;
     @FXML
-    ChoiceBox resultCurrencyChoiceBox;
+    ChoiceBox<Currency> resultCurrencyChoiceBox;
     @FXML
     TextField resultValueTextField;
     @FXML
@@ -40,9 +40,9 @@ public class MainScreenController implements  Initializable, ControllerInterface
     VBox exchangeRatesVBox4;
 
     private CurrencyCalculator currencyCalculator;
-    private ArrayList<ExchangeRateLabel> exchangeRatesLabels = new ArrayList<ExchangeRateLabel>();
+    private ArrayList<ExchangeRateLabel> exchangeRatesLabels = new ArrayList<>();
 
-    private void changeExchangeRateseScreen(Currency newBaseCurrency)
+    private void changeExchangeRatesScreen(Currency newBaseCurrency)
     {
         for(ExchangeRateLabel label : exchangeRatesLabels)
         {
@@ -55,8 +55,8 @@ public class MainScreenController implements  Initializable, ControllerInterface
     {
         if(sourceCurrencyChoiceBox.getValue() != null || resultCurrencyChoiceBox.getValue() != null)
         {
-            Currency c1 = (Currency)sourceCurrencyChoiceBox.getValue();
-            Currency c2 = (Currency)resultCurrencyChoiceBox.getValue();
+            Currency c1 = sourceCurrencyChoiceBox.getValue();
+            Currency c2 = resultCurrencyChoiceBox.getValue();
 
             resultCurrencyChoiceBox.setValue(c1);
             sourceCurrencyChoiceBox.setValue(c2);
@@ -65,7 +65,7 @@ public class MainScreenController implements  Initializable, ControllerInterface
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // ============== setting proportions of ChoiceBoxes and Text fiels to 2:1 ==============
+        // ============== setting proportions of ChoiceBoxes and Text fields to 2:1 ==============
         //whenever height of container changes, height of nodes also does
         leftVBox.heightProperty().addListener((observable, odValue, newValue) ->{
             double containerHeight = newValue.doubleValue();
@@ -84,12 +84,12 @@ public class MainScreenController implements  Initializable, ControllerInterface
         if(!userValueInputTextField.getText().isEmpty())
         {
             BigDecimal startValue = new BigDecimal(userValueInputTextField.getText());
-            Currency startCurrency = (Currency)sourceCurrencyChoiceBox.getValue();
-            Currency endCurrency = (Currency)resultCurrencyChoiceBox.getValue();
+            Currency startCurrency = sourceCurrencyChoiceBox.getValue();
+            Currency endCurrency = resultCurrencyChoiceBox.getValue();
 
             if(startCurrency != null && endCurrency != null)
             {
-                BigDecimal resultVal = (currencyCalculator.perfomConversion(startValue, startCurrency, endCurrency));
+                BigDecimal resultVal = (currencyCalculator.performConversion(startValue, startCurrency, endCurrency));
                 resultValueTextField.setText(resultVal.toString());
             }
         }
@@ -108,7 +108,7 @@ public class MainScreenController implements  Initializable, ControllerInterface
             resultCurrencyChoiceBox.setValue(currencyCalculator.getCurrencies().get(1));
         }
         // ============ implement exchange rates screen
-        Currency baseCurrency = (Currency)sourceCurrencyChoiceBox.getValue();
+        Currency baseCurrency = sourceCurrencyChoiceBox.getValue();
 
         VBox[] containers = {exchangeRatesVBox1, exchangeRatesVBox2, exchangeRatesVBox3, exchangeRatesVBox4};
         int containerIt = 0;
@@ -130,7 +130,7 @@ public class MainScreenController implements  Initializable, ControllerInterface
         sourceCurrencyChoiceBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null)
             {
-                changeExchangeRateseScreen((Currency)newValue);
+                changeExchangeRatesScreen(newValue);
                 updateResultTextField();
             }
         });
@@ -146,7 +146,7 @@ public class MainScreenController implements  Initializable, ControllerInterface
             if(!newValue.isEmpty())
             {
                 // clean text field out of chars other than numbers and a dot
-                boolean wasDotSpoted = false;
+                boolean wasDotSpotted = false;
 
                 StringBuilder builder = new StringBuilder();
                 for(char c: newValue.toCharArray())
@@ -155,9 +155,9 @@ public class MainScreenController implements  Initializable, ControllerInterface
                     {
                         builder.append(c);
                     }
-                    else if(c == '.' && (!wasDotSpoted))
+                    else if(c == '.' && (!wasDotSpotted))
                     {
-                        wasDotSpoted=true;
+                        wasDotSpotted=true;
                         builder.append(c);
                     }
                 }

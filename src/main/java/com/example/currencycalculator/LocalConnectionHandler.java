@@ -1,9 +1,12 @@
 package com.example.currencycalculator;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.InputStream;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -34,16 +37,6 @@ public class LocalConnectionHandler {
         ControllerInterface controller = fxmlLoader.getController();
         controller.setCurrencyCalculator(currencyCalculator);
         return scene;
-    }
-
-    public static String getArchvalExchangeRates() throws IOException
-    {
-        return readFromFile("exchange-rates.json");
-    }
-
-    public static String getArchivalCurrencyInfo() throws  IOException
-    {
-        return readFromFile("currencies-info.json");
     }
 
     public static ArrayList<Currency> getArchivalCurrenyObjects() throws IOException

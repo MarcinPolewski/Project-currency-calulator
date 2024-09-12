@@ -1,12 +1,10 @@
 package com.example.currencycalculator;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 
 public class Main extends Application {
     @Override
@@ -16,16 +14,15 @@ public class Main extends Application {
         CurrencyCalculator currencyCalculator = new CurrencyCalculator();
         LocalConnectionHandler.setCurrencyCalculator(currencyCalculator);
 
-        ServerConnectionHandler serverConnectionHandler;
         try{
-            serverConnectionHandler = new ServerConnectionHandler();
+            ServerConnectionHandler.initialize();
         }catch(MalformedURLException e) {
             // @TODO prompt user about encountered error
-            System.out.println("error has occured during constructing api link");
+            System.out.println("error has occurred during constructing api link");
             return;
         } catch(IOException e) {
             // @TODO prompt user about encountered error
-            System.out.println("Error has occured during accessing api configuration file");
+            System.out.println("Error has occurred during accessing api configuration file");
             return;
         }
 

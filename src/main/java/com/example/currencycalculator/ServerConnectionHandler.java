@@ -10,8 +10,11 @@ import java.util.Properties;
 
 public class ServerConnectionHandler {
     private static Properties apiProperties;
-    ServerConnectionHandler() throws IOException {
-        this.apiProperties =  LocalConnectionHandler.getApiProperties();
+    public static void initialize() throws IOException {
+        if(apiProperties == null)
+        {
+            ServerConnectionHandler.apiProperties =  LocalConnectionHandler.getApiProperties();
+        }
     }
     public static String loadCurrencyInfo() throws IOException {
         String linkText = apiProperties.getProperty("api.baseLink") +
@@ -67,6 +70,4 @@ public class ServerConnectionHandler {
 
         return FileDataConverter.inputToArrayOfObjects(s1,s2);
     }
-
-
 }

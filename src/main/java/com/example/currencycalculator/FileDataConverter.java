@@ -1,6 +1,5 @@
 package com.example.currencycalculator;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -16,7 +15,7 @@ public class FileDataConverter {
         ObjectMapper exchangeRatesObjectMapper= new ObjectMapper();
         JsonNode exchangeRatesNode = exchangeRatesObjectMapper.readTree(exchangeRatesString).get("rates"); // this is the exchangeRatesNode with "list" of SYMBOL: exchange rate
 
-        // get base currency code from input
+        // ========== get base currency code from input ==========
         JsonNode baseCurrency = exchangeRatesObjectMapper.readTree(exchangeRatesString).get("base");
         String baseCurrencyCode = baseCurrency.asText();
 
@@ -26,7 +25,7 @@ public class FileDataConverter {
         Iterator<Map.Entry<String, JsonNode>> exchangeRatesIterator = exchangeRatesNode.fields();
         Iterator<Map.Entry<String, JsonNode>> currencyInfoIterator = currencyInfoNode.fields();
 
-        ArrayList<Currency> currencies = new ArrayList<Currency>();
+        ArrayList<Currency> currencies = new ArrayList<>();
         while(exchangeRatesIterator.hasNext() && currencyInfoIterator.hasNext())
         {
             Map.Entry<String, JsonNode> exchangeRateField = exchangeRatesIterator.next();
