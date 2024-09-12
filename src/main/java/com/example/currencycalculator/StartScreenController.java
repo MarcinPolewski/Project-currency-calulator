@@ -4,16 +4,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ProgressIndicator;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class StartScreenController implements Initializable, ControllerInterface {
     @FXML
-    Button loadArchiveDataButton;
+    ProgressIndicator progressIndicator;
 
     private CurrencyCalculator currencyCalculator;
 
@@ -30,14 +34,9 @@ public class StartScreenController implements Initializable, ControllerInterface
         }
         ((ControllerInterface)newScene.getController()).processingAfterInitialization();
 
-        Stage stage = (Stage)loadArchiveDataButton.getScene().getWindow();
+        Stage stage = (Stage)progressIndicator.getScene().getWindow();
         stage.setScene(newScene);
         stage.show();
-    }
-    @FXML
-    void loadArchiveDataButtonPressed(ActionEvent event)
-    {
-        // @TODO read archival data here
     }
 
     @Override
@@ -55,11 +54,34 @@ public class StartScreenController implements Initializable, ControllerInterface
         // try to add currencies
         try{
             currencyCalculator.loadCurreneciesFromServer();
-            System.out.println("assets loaded");
-        } catch(IOException e)
+        } catch(IOException e1)
         {
-            // @TODO propmp user that loading assets from server failed and ask i he wants to use archival
-            System.out.println("loading failed");
+            Alert failedToLoadAlert = new Alert(Alert.AlertType.ERROR);
+            failedToLoadAlert.setTitle("Loading error");
+            failedToLoadAlert.setHeaderText("Application was unable to reach server for current data. Would you like to load archival data?");
+            failedToLoadAlert.setContentText(e1.toString());
+
+            ButtonType loadArchival = new ButtonType("load archival");
+            ButtonType quit = new ButtonType("quit");
+            failedToLoadAlert.getButtonTypes().setAll(loadArchival, quit);
+            Optional<ButtonType> result = failedToLoadAlert.showAndWait();
+            if(result.get() == loadArchival)
+            {
+                try{
+                    currencyCalculator.loadArchivalCurrencies();
+                } catch (IOException e2)
+                {
+                    Alert failedToLoadArchival = new Alert(Alert.AlertType.ERROR);
+                    failedToLoadAlert.setTitle("Loading error");
+                    failedToLoadArchival.setHeaderText("Application was unable to read locally stored archival data");
+                    failedToLoadArchival.setContentText(e2.toString());
+                }
+
+            }
+            else{
+                ((Stage)(progressIndicator.getScene().getWindow())).close();
+            }
+
         }
     }
 
