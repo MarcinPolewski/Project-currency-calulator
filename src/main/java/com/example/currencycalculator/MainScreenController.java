@@ -7,6 +7,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -75,6 +76,25 @@ public class MainScreenController implements  Initializable, ControllerInterface
         });
     }
 
+    private void updateResultTextField()
+    {
+        // @TODO
+        // 1. check if only numbers
+        // 2. get values
+        if(!userValueInputTextField.getText().isEmpty())
+        {
+            BigDecimal startValue = new BigDecimal(userValueInputTextField.getText());
+            Currency startCurrency = (Currency)sourceCurrencyChoiceBox.getValue();
+            Currency endCurrency = (Currency)resultCurrencyChoiceBox.getValue();
+
+            if(startCurrency != null && endCurrency != null)
+            {
+                BigDecimal resultVal = (currencyCalculator.perfomConversion(startValue, startCurrency, endCurrency));
+                resultValueTextField.setText(resultVal.toString());
+            }
+        }
+    }
+
     @Override
     public void processingAfterInitialization() {
         // ============ set contents of Choice Boxes
@@ -106,21 +126,50 @@ public class MainScreenController implements  Initializable, ControllerInterface
             ++containerIt;
         }
 
-        // =========== add listener to choice boxes
+        // =========== add listener to choice boxes and user input text field
         sourceCurrencyChoiceBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null)
             {
                 changeExchangeRateseScreen((Currency)newValue);
-                // @TODO update result
+                updateResultTextField();
             }
         });
 
         resultCurrencyChoiceBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue != null)
             {
-                // @TODO update result
+                updateResultTextField();
             }
         });
+
+        userValueInputTextField.textProperty().addListener((observable, oldValue, newValue) ->{
+            if(!newValue.isEmpty())
+            {
+                // clean text field out of chars other than numbers and a dot
+                boolean wasDotSpoted = false;
+
+                StringBuilder builder = new StringBuilder();
+                for(char c: newValue.toCharArray())
+                {
+                    if('0'<=c && c<='9')
+                    {
+                        builder.append(c);
+                    }
+                    else if(c == '.' && (!wasDotSpoted))
+                    {
+                        wasDotSpoted=true;
+                        builder.append(c);
+                    }
+                }
+                userValueInputTextField.setText(builder.toString());
+
+                updateResultTextField();
+            }
+            else
+            {
+                resultValueTextField.clear();
+            }
+        } );
     }
 
     @Override

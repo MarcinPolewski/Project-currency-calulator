@@ -16,6 +16,10 @@ public class FileDataConverter {
         ObjectMapper exchangeRatesObjectMapper= new ObjectMapper();
         JsonNode exchangeRatesNode = exchangeRatesObjectMapper.readTree(exchangeRatesString).get("rates"); // this is the exchangeRatesNode with "list" of SYMBOL: exchange rate
 
+        // get base currency code from input
+        JsonNode baseCurrency = exchangeRatesObjectMapper.readTree(exchangeRatesString).get("base");
+        String baseCurrencyCode = baseCurrency.asText();
+
         ObjectMapper currencyInfoObjectMapper = new ObjectMapper();
         JsonNode currencyInfoNode = currencyInfoObjectMapper.readTree(currencyInfoString).get("symbols");
 
@@ -40,7 +44,14 @@ public class FileDataConverter {
                 continue;
 
             }
-            currencies.add(new Currency(currencyCode1, fullCurrencyName.asText(), new BigDecimal(exchangeRate.asText())));
+            Currency newCurrency = new Currency(currencyCode1, fullCurrencyName.asText(), new BigDecimal(exchangeRate.asText()));
+            currencies.add(newCurrency);
+
+            //check if this currency is base currency
+            if(baseCurrencyCode.equals(currencyCode1))
+            {
+                Currency.setBaseExchangeRateCurrency(newCurrency);
+            }
         }
         if(currencies.size()<2)
         {

@@ -5,11 +5,14 @@ import javafx.beans.property.SimpleBooleanProperty;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class CurrencyCalculator {
     // performs caluclations / conversion from base currency
     // keeps currency obejcts
+    private static Currency BaseCurrencyOfRates; // all exchange rates are relating to this currency
+
     private ArrayList<Currency> currencies;
     private SimpleBooleanProperty assetsLoaded = new SimpleBooleanProperty(false);
 
@@ -35,17 +38,8 @@ public class CurrencyCalculator {
         return currencies;
     }
 
-//    public ArrayList<String> getConversionLabels()
-//    {
-//        // get contents of labels that are presented on the bottom part of the screen
-//    }
-//
-//    public ArrayList<Currency> getCurrencies()
-//    {
-//       // used for drop down menus
-//    }
-//
-//    public BigDecimal performConversion(BigDecimal value, Currency start, Currency end)
-//    {
-//    }
+    public BigDecimal perfomConversion(BigDecimal value, Currency startCurrency, Currency endCurrency)
+    {
+        return startCurrency.convertTo(endCurrency, value);
+    }
 }

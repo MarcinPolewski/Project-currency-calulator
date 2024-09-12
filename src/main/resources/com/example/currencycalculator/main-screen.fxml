@@ -18,7 +18,7 @@
             <VBox fx:id="leftVBox" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
                   <ChoiceBox fx:id="sourceCurrencyChoiceBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="150.0" VBox.vgrow="ALWAYS" />
-                  <TextField fx:id="userValueInputTextField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="100.00" VBox.vgrow="ALWAYS" />
+                  <TextField fx:id="userValueInputTextField" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="input source value" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
             <VBox maxWidth="50.0" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
@@ -29,7 +29,7 @@
             <VBox fx:id="rightVBox" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
                   <ChoiceBox fx:id="resultCurrencyChoiceBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="150.0" VBox.vgrow="ALWAYS" />
-                  <TextField fx:id="resultValueTextField" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+                  <TextField fx:id="resultValueTextField" alignment="CENTER" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="result" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children>

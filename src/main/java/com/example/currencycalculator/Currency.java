@@ -1,10 +1,16 @@
 package com.example.currencycalculator;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Currency {
+    private static Currency baseExchangeRateCurrency;
+
     private final String code;
     private final String fullName;
     private final BigDecimal exchangeRate;
+
+
 
     Currency(String code, String fullName, BigDecimal exchangeRate)
     {
@@ -25,7 +31,11 @@ public class Currency {
     }
 
     public BigDecimal convertTo(Currency targetCurrency, BigDecimal value) {
-        return BigDecimal.TEN;
+        BigDecimal result = value;
+        result = result.multiply(targetCurrency.getExchangeRate());
+        result = result.divide(this.getExchangeRate(), RoundingMode.HALF_EVEN);
+
+        return result;
     }
 
 
@@ -34,4 +44,11 @@ public class Currency {
         return "(" + this.code + ") " + this.fullName;
     }
 
+    public static void setBaseExchangeRateCurrency(Currency baseExchangeRateCurrency) {
+        Currency.baseExchangeRateCurrency = baseExchangeRateCurrency;
+    }
+
+    public static Currency getBaseExchangeRateCurrency(){
+        return baseExchangeRateCurrency;
+    }
 }
